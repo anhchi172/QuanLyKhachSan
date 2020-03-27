@@ -1,9 +1,11 @@
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class QuanLyKhachSan {
     private HashMap<Nguoi, KhachSan> hm;
+    private KhachSanDAO khachSanDAO;
 
     public QuanLyKhachSan() {
         hm = new HashMap<>();
@@ -11,6 +13,8 @@ public class QuanLyKhachSan {
 
     public void put(Nguoi n, KhachSan ks) {
         hm.put(n, ks);
+        if (hm.size()!= 0)
+            khachSanDAO.write(hm);
         System.out.println("Da them " + n.getHoTen() + " vao phong loai " + ks.getLoaiPhong());
     }
 
@@ -18,6 +22,7 @@ public class QuanLyKhachSan {
         for (Map.Entry<Nguoi, KhachSan> entry : hm.entrySet()) {
             if (entry.getKey().getSoCMND() == soCMND) {
                 hm.remove(entry);
+                khachSanDAO.write(hm);
                 System.out.println("Da xoa ca nhan voi so CMND " + soCMND);
             }
 
